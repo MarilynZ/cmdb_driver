@@ -1,0 +1,50 @@
+kind: cmdb#type
+name: example_os
+metas:
+  os_version:
+    value_type: STRING
+    description: "os version"
+  image:
+    value_type: STRING
+    description: "image id"
+statuses:
+  NORMAL:
+    description: "normal"
+    states:
+      NORMAL:
+        description: "normal"
+---
+kind: cmdb#object
+type: example_os
+name: ubuntu
+metas:
+  os_version: ubuntu-18.09
+  image: ubuntu-18.09-4.15.08
+status: NORMAL
+state: NORMAL
+---
+kind: cmdb#type
+name: example_machine
+metas:
+  os:
+    value_type: STRING
+    description: "os name"
+statuses:
+  NOT_READY:
+    description: "not ready"
+    states:
+      BUY:
+      INITED:
+  STABLE:
+    description: "normal"
+    states:
+      NORMAL:
+        description: "normal"
+---
+kind: cmdb#object
+type: example_machine
+name: kodor_pek01
+metas:
+  os: ubuntu
+status: NOT_READY
+state: BUY
