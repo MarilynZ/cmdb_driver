@@ -30,7 +30,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	osCache := &OSCache{
 		cache:  map[string]*OS{},
 		locker: sync.Mutex{},

@@ -9,9 +9,12 @@ import (
 )
 
 type Driver struct {
-	cc *grpc.ClientConn
-	v1.ObjectsClient
-	handlers []controllerWrapper
+	cc                  *grpc.ClientConn
+	ObjectsClient       v1.ObjectsClient
+	RelationsClient     v1.RelationsClient
+	ObjectTypesClient   v1.ObjectTypesClient
+	RelationTypesClient v1.RelationTypesClient
+	handlers            []controllerWrapper
 }
 
 func NewDriver(addr string) (*Driver, error) {
@@ -19,8 +22,13 @@ func NewDriver(addr string) (*Driver, error) {
 	if err != nil {
 		return nil, err
 	}
-	cli := v1.NewObjectsClient(clientConn)
-	d := &Driver{cc: clientConn, ObjectsClient: cli}
+	d := &Driver{
+		cc:                  clientConn,
+		ObjectsClient:       v1.NewObjectsClient(clientConn),
+		RelationsClient:     v1.NewRelationsClient(clientConn),
+		ObjectTypesClient:   v1.NewObjectTypesClient(clientConn),
+		RelationTypesClient: v1.NewRelationTypesClient(clientConn),
+	}
 	return d, nil
 }
 

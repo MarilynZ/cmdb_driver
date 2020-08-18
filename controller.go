@@ -21,7 +21,7 @@ type controllerWrapper struct {
 func (c *controllerWrapper) Run(ctx context.Context) error {
 	typ, query := c.handler.Filter()
 
-	watchClient, err := c.Watch(ctx, &v1.ObjectListRequest{
+	watchClient, err := c.Watch(ctx, &v1.ListObjectRequest{
 		Type:        typ,
 		View:        v1.ObjectView_NORMAL,
 		Query:       query,
@@ -40,7 +40,7 @@ func (c *controllerWrapper) Run(ctx context.Context) error {
 	}
 }
 
-func (c *controllerWrapper) Receive(evt *v1.ObjectWatchEvent) {
+func (c *controllerWrapper) Receive(evt *v1.ObjectEvent) {
 	switch evt.GetType() {
 	case v1.WatchEventType_INIT, v1.WatchEventType_UPDATE, v1.WatchEventType_CREATE:
 		for _, obj := range evt.Objects {
